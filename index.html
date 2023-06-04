@@ -48,33 +48,11 @@
 
   </style>
 
-  <script>
-
-    // Code JavaScript ici
-
-    function handleCheckboxChange(row) {
-
-      var checkboxes = row.querySelectorAll('input[type="checkbox"]');
-
-      checkboxes.forEach(function(checkbox) {
-
-        checkbox.checked = false;
-
-      });
-
-      event.target.checked = true;
-
-    }
-
-  </script>
-
 </head>
 
 <body>
 
   <h1>État des lieux</h1>
-  
-  <h2>Entrée</h2>
 
   <table>
 
@@ -82,7 +60,19 @@
 
       <tr>
 
-        <th>nom</th>
+        <th colspan="2"></th>
+
+        <th colspan="5">État</th>
+
+        <th>Commentaire</th>
+
+      </tr>
+
+      <tr>
+
+        <th>Entrée</th>
+
+        <th></th>
 
         <th>N</th>
 
@@ -94,6 +84,8 @@
 
         <th>ME</th>
 
+        <th></th>
+
       </tr>
 
     </thead>
@@ -102,19 +94,403 @@
 
       <tr>
 
-        <td>lit</td>
+        <td rowspan="8">mur</td>
 
-        <td><input type="checkbox" onchange="handleCheckboxChange(this.parentNode.parentNode)"></td>
+        <td>1</td>
 
-        <td><input type="checkbox" onchange="handleCheckboxChange(this.parentNode.parentNode)"></td>
+        <td><input type="checkbox"></td>
 
-        <td><input type="checkbox" onchange="handleCheckboxChange(this.parentNode.parentNode)"></td>
+        <td><input type="checkbox"></td>
 
-        <td><input type="checkbox" onchange="handleCheckboxChange(this.parentNode.parentNode)"></td>
+        <td><input type="checkbox"></td>
 
-        <td><input type="checkbox" onchange="handleCheckboxChange(this.parentNode.parentNode)"></td>
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
 
       </tr>
+
+      <tr>
+
+        <td>2</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      <tr>
+
+        <td>3</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      <tr>
+
+        <td>4</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      <tr>
+
+        <td>5</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      <tr>
+
+        <td>6</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      <tr>
+
+        <td>7</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      <tr>
+
+        <td>8</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      
+
+      <!-- Ajoutez d'autres lignes ici si nécessaire -->
+
+    </tbody>
+
+  </table>
+
+</body>
+
+</html>
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>État des lieux</title>
+
+  <style>
+
+    /* Styles CSS ici */
+
+    body {
+
+      font-family: Arial, sans-serif;
+
+      background-color: #f1f1f1;
+
+      padding: 20px;
+
+    }
+
+    table {
+
+      width: 100%;
+
+      border-collapse: collapse;
+
+    }
+
+    th, td {
+
+      padding: 10px;
+
+      text-align: left;
+
+      border-bottom: 1px solid #ddd;
+
+    }
+
+    th {
+
+      background-color: #f2f2f2;
+
+    }
+
+    /* Ajoutez d'autres styles CSS ici */
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>État des lieux</h1>
+
+  <table>
+
+    <thead>
+
+      <tr>
+
+        <th colspan="2"></th>
+
+        <th colspan="5">État</th>
+
+        <th>Commentaire</th>
+
+      </tr>
+
+      <tr>
+
+        <th>Entrée</th>
+
+        <th></th>
+
+        <th>N</th>
+
+        <th>TBE</th>
+
+        <th>BE</th>
+
+        <th>ABE</th>
+
+        <th>ME</th>
+
+        <th></th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr>
+
+        <td rowspan="8">mur</td>
+
+        <td>1</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      <tr>
+
+        <td>2</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      <tr>
+
+        <td>3</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      <tr>
+
+        <td>4</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      <tr>
+
+        <td>5</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      <tr>
+
+        <td>6</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      <tr>
+
+        <td>7</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      <tr>
+
+        <td>8</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="text"></td>
+
+      </tr>
+
+      
 
       <!-- Ajoutez d'autres lignes ici si nécessaire -->
 
