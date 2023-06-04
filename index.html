@@ -48,6 +48,26 @@
 
   </style>
 
+  <script>
+
+    // Code JavaScript ici
+
+    function handleCheckboxChange(row) {
+
+      var checkboxes = row.querySelectorAll('input[type="checkbox"]');
+
+      checkboxes.forEach(function(checkbox) {
+
+        checkbox.checked = false;
+
+      });
+
+      event.target.checked = true;
+
+    }
+
+  </script>
+
 </head>
 
 <body>
@@ -82,15 +102,15 @@
 
         <td>lit</td>
 
-        <td><input type="checkbox"></td>
+        <td><input type="checkbox" onchange="handleCheckboxChange(this.parentNode.parentNode)"></td>
 
-        <td><input type="checkbox"></td>
+        <td><input type="checkbox" onchange="handleCheckboxChange(this.parentNode.parentNode)"></td>
 
-        <td><input type="checkbox"></td>
+        <td><input type="checkbox" onchange="handleCheckboxChange(this.parentNode.parentNode)"></td>
 
-        <td><input type="checkbox"></td>
+        <td><input type="checkbox" onchange="handleCheckboxChange(this.parentNode.parentNode)"></td>
 
-        <td><input type="checkbox"></td>
+        <td><input type="checkbox" onchange="handleCheckboxChange(this.parentNode.parentNode)"></td>
 
       </tr>
 
