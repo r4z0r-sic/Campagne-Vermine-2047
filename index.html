@@ -20,63 +20,33 @@
 
     }
 
-    h1 {
+    table {
 
-      text-align: center;
+      width: 100%;
 
-      margin-bottom: 20px;
+      border-collapse: collapse;
 
     }
 
-    /* Ajoutez vos autres styles CSS ici */
+    th, td {
+
+      padding: 10px;
+
+      text-align: left;
+
+      border-bottom: 1px solid #ddd;
+
+    }
+
+    th {
+
+      background-color: #f2f2f2;
+
+    }
+
+    /* Ajoutez d'autres styles CSS ici */
 
   </style>
-
-  <script>
-
-    /* Code JavaScript ici */
-
-    document.getElementById('etatDesLieuxForm').addEventListener('submit', function(event) {
-
-      event.preventDefault();
-
-      var nom = document.getElementById('nom').value;
-
-      var adresse = document.getElementById('adresse').value;
-
-      var docDefinition = {
-
-        content: [
-
-          { text: 'État des lieux', style: 'header' },
-
-          { text: 'Nom: ' + nom },
-
-          { text: 'Adresse: ' + adresse }
-
-        ],
-
-        styles: {
-
-          header: {
-
-            fontSize: 18,
-
-            bold: true,
-
-            margin: [0, 0, 0, 10]
-
-          }
-
-        }
-
-      };
-
-      pdfMake.createPdf(docDefinition).download('etat_des_lieux.pdf');
-
-    });
-
-  </script>
 
 </head>
 
@@ -84,21 +54,51 @@
 
   <h1>État des lieux</h1>
 
-  <form id="etatDesLieuxForm">
+  <table>
 
-    <label for="nom">Nom :</label>
+    <thead>
 
-    <input type="text" id="nom" name="nom" required>
+      <tr>
 
-    <label for="adresse">Adresse :</label>
+        <th>nom</th>
 
-    <input type="text" id="adresse" name="adresse" required>
+        <th>N</th>
 
-    <!-- Ajoutez d'autres champs nécessaires -->
+        <th>TBE</th>
 
-    <button type="submit">Exporter en PDF</button>
+        <th>BE</th>
 
-  </form>
+        <th>ABE</th>
+
+        <th>ME</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr>
+
+        <td>lit</td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+        <td><input type="checkbox"></td>
+
+      </tr>
+
+      <!-- Ajoutez d'autres lignes ici si nécessaire -->
+
+    </tbody>
+
+  </table>
 
 </body>
 
