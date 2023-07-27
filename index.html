@@ -44,7 +44,7 @@
   const app = initializeApp(firebaseConfig);
 
     // Code pour initialiser la carte Leaflet
-    var mymap = L.map('maCarte').setView([47.07083856477033, 2.7099550831874186], 13);
+    var mymap = L.map('maCarte').setView([47.07083856477033, 2.7099550831874186], 5);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
 
     // Référence à la base de données Firebase
