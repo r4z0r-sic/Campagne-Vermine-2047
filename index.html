@@ -45,10 +45,7 @@
 
     // Code pour initialiser la carte Leaflet
     var mymap = L.map('maCarte').setView([47.07083856477033, 2.7099550831874186], 5);
-    L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
-        maxZoom: 20,
-        subdomains:['mt0','mt1','mt2','mt3']
-});
+    L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}';
 
     // Référence à la base de données Firebase
     var database = firebase.database();
