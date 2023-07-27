@@ -1,504 +1,68 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
-  <title>État des lieux</title>
-
-  <style>
-
-    /* Styles CSS ici */
-
-    body {
-
-      font-family: Arial, sans-serif;
-
-      background-color: #f1f1f1;
-
-      padding: 20px;
-
-    }
-
-    table {
-
-      width: 100%;
-
-      border-collapse: collapse;
-
-    }
-
-    th, td {
-
-      padding: 10px;
-
-      text-align: left;
-
-      border-bottom: 1px solid #ddd;
-
-    }
-
-    th {
-
-      background-color: #f2f2f2;
-
-    }
-
-    /* Ajoutez d'autres styles CSS ici */
-
-  </style>
-
+  <title>Ma carte Leaflet avec partage de marqueurs</title>
+  <!-- Inclure les fichiers CSS de Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
-
 <body>
-
-  <h1>État des lieux</h1>
-
-  <table>
-
-    <thead>
-
-      <tr>
-
-        <th colspan="2"></th>
-
-        <th colspan="5">État</th>
-
-        <th>Commentaire</th>
-
-      </tr>
-
-      <tr>
-
-        <th>Entrée</th>
-
-        <th></th>
-
-        <th>N</th>
-
-        <th>TBE</th>
-
-        <th>BE</th>
-
-        <th>ABE</th>
-
-        <th>ME</th>
-
-        <th></th>
-
-      </tr>
-
-    </thead>
-
-    <tbody>
-
-      <tr>
-
-        <td rowspan="8">mur</td>
-
-        <td>1</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>2</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>3</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>4</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>5</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>6</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>7</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>8</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      
-
-      <!-- Ajoutez d'autres lignes ici si nécessaire -->
-
-    </tbody>
-
-  </table>
-
+  <!-- Div pour afficher la carte Leaflet -->
+  <div id="maCarte" style="width: 600px; height: 400px;"></div>
+
+  <!-- Inclure les fichiers JavaScript de Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <!-- Inclure la bibliothèque Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDr58sF_Aens1MAzqZ-9ZvKM1MRGH9Pwq4",
+    authDomain: "mapvermine2047.firebaseapp.com",
+    databaseURL: "https://mapvermine2047-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "mapvermine2047",
+    storageBucket: "mapvermine2047.appspot.com",
+    messagingSenderId: "866305184034",
+    appId: "1:866305184034:web:ef3767476474c4c07a557b"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+    // Code pour initialiser la carte Leaflet
+    var mymap = L.map('maCarte').setView([51.505, -0.09], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
+
+    // Référence à la base de données Firebase
+    var database = firebase.database();
+
+    // Charger les marqueurs sauvegardés depuis Firebase au chargement de la page
+    database.ref('marqueurs').on('value', function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        var markerData = childSnapshot.val();
+        var marker = L.marker(markerData.latlng).addTo(mymap);
+        marker.bindPopup(markerData.title);
+      });
+    });
+
+    // Gérer le clic sur la carte pour ajouter un nouveau marqueur
+    mymap.on('click', function(event) {
+      var title = prompt('Entrez un titre pour le marqueur :');
+      if (title) {
+        var marker = L.marker(event.latlng).addTo(mymap);
+        marker.bindPopup(title);
+
+        // Sauvegarder le nouveau marqueur dans Firebase
+        database.ref('marqueurs').push({ latlng: event.latlng, title: title });
+      }
+    });
+  </script>
 </body>
-
 </html>
-
-<!DOCTYPE html>
-
-<html>
-
-<head>
-
-  <title>État des lieux</title>
-
-  <style>
-
-    /* Styles CSS ici */
-
-    body {
-
-      font-family: Arial, sans-serif;
-
-      background-color: #f1f1f1;
-
-      padding: 20px;
-
-    }
-
-    table {
-
-      width: 100%;
-
-      border-collapse: collapse;
-
-    }
-
-    th, td {
-
-      padding: 10px;
-
-      text-align: left;
-
-      border-bottom: 1px solid #ddd;
-
-    }
-
-    th {
-
-      background-color: #f2f2f2;
-
-    }
-
-    /* Ajoutez d'autres styles CSS ici */
-
-  </style>
-
-</head>
-
-<body>
-
-  <h1>État des lieux</h1>
-
-  <table>
-
-    <thead>
-
-      <tr>
-
-        <th colspan="2"></th>
-
-        <th colspan="5">État</th>
-
-        <th>Commentaire</th>
-
-      </tr>
-
-      <tr>
-
-        <th>Entrée</th>
-
-        <th></th>
-
-        <th>N</th>
-
-        <th>TBE</th>
-
-        <th>BE</th>
-
-        <th>ABE</th>
-
-        <th>ME</th>
-
-        <th></th>
-
-      </tr>
-
-    </thead>
-
-    <tbody>
-
-      <tr>
-
-        <td rowspan="8">mur</td>
-
-        <td>1</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>2</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>3</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>4</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>5</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>6</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>7</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      <tr>
-
-        <td>8</td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="checkbox"></td>
-
-        <td><input type="text"></td>
-
-      </tr>
-
-      
-
-      <!-- Ajoutez d'autres lignes ici si nécessaire -->
-
-    </tbody>
-
-  </table>
-
-</body>
-
-</html>
-
