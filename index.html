@@ -1,99 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Carte Campagne Vermine 2047</title>
-  <!-- Inclure les fichiers CSS de Leaflet -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-   <style>
-    /* Définir la taille de la carte pour occuper 100% de la largeur */
-    #maCarte {
+  <style>
+    html, body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    #map {
+      /* configure the size of the map */
       width: 100%;
-      height: 700px; /* Vous pouvez définir la hauteur souhaitée ici */
+      height: 100%;
+    }
+    /* Style for the textarea in the popup */
+    .leaflet-popup-content textarea {
+      width: 100%;
+      resize: vertical;
+      min-width: 200px;
+      min-height: 200px;
     }
   </style>
 </head>
 <body>
-  <!-- Div pour afficher la carte Leaflet -->
-  <div id="maCarte"></div>
-
-  <!-- Inclure les fichiers JavaScript de Leaflet -->
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-
-  <!-- Inclure la bibliothèque Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-
-  <!-- test peut être a suprr -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY" async defer></script>
-<link
-	rel="stylesheet"
-	href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-	integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-	crossorigin=""
-/>
-<script
-	src="https://unpkg.com/leaflet@1.7.1/dist/leaflet-src.js"
-	integrity="sha512-I5Hd7FcJ9rZkH7uD01G3AjsuzFy3gqz7HIJvzFZGFt2mrCS4Piw9bYZvCgUE0aiJuiZFYIJIwpbNnDIM6ohTrg=="
-	crossorigin=""
-></script>
-
-  <script src="https://unpkg.com/leaflet.gridlayer.googlemutant@latest/dist/Leaflet.GoogleMutant.js"></script>
-
+  <div id="map"></div>
   <script>
- var roads = L.gridLayer
-	.googleMutant({
-		type: "hybrid", // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
-	})
-	.addTo(map);
-  </script>
+    // initialize Leaflet
+    var map = L.map('map').setView({ lon: 2.1805813062965917, lat: 46.681175219131056 }, 7);
 
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    // add the OpenStreetMap tiles
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    }).addTo(map);
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyDr58sF_Aens1MAzqZ-9ZvKM1MRGH9Pwq4",
-    authDomain: "mapvermine2047.firebaseapp.com",
-    databaseURL: "https://mapvermine2047-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "mapvermine2047",
-    storageBucket: "mapvermine2047.appspot.com",
-    messagingSenderId: "866305184034",
-    appId: "1:866305184034:web:ef3767476474c4c07a557b"
-  };
+    // show the scale bar on the lower left corner
+    L.control.scale({ imperial: true, metric: true }).addTo(map);
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+    // Référence aux marqueurs dans le stockage local
+    var markers = JSON.parse(localStorage.getItem('markers')) || [];
 
-    // Code pour initialiser la carte Leaflet
-    var mymap = L.map('maCarte').setView([47.07083856477033, 2.7099550831874186], 5);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mymap);
+    // Gestionnaire d'événements pour détecter les clics sur la carte
+    function onMapClick(e) {
+      // Récupère les coordonnées du clic
+      var lat = e.latlng.lat;
+      var lng = e.latlng.lng;
 
-    // Référence à la base de données Firebase
-    var database = firebase.database();
+      // Demande à l'utilisateur de saisir un nom pour le marqueur
+      var markerName = prompt("Entrez le nom du marqueur :");
 
-    // Charger les marqueurs sauvegardés depuis Firebase au chargement de la page
-    database.ref('marqueurs').on('value', function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        var markerData = childSnapshot.val();
-        var marker = L.marker(markerData.latlng).addTo(mymap);
-        marker.bindPopup(markerData.title);
-      });
-    });
+      // Vérifie si l'utilisateur a saisi un nom avant d'enregistrer le marqueur
+      if (markerName) {
+        // Enregistre les coordonnées et le nom du marqueur dans le stockage local
+        markers.push({ lat: lat, lng: lng, name: markerName, text: '' });
+        localStorage.setItem('markers', JSON.stringify(markers));
 
-    // Gérer le clic sur la carte pour ajouter un nouveau marqueur
-    mymap.on('click', function(event) {
-      var title = prompt('Entrez un titre pour le marqueur :');
-      if (title) {
-        var marker = L.marker(event.latlng).addTo(mymap);
-        marker.bindPopup(title);
-
-        // Sauvegarder le nouveau marqueur dans Firebase
-        database.ref('marqueurs').push({ latlng: event.latlng, title: title });
+        // Ajoute le marqueur sur la carte Leaflet
+        addMarkerToMap(lat, lng, markerName);
       }
+    }
+
+    // Fonction pour ajouter un marqueur sur la carte Leaflet
+    function addMarkerToMap(lat, lng, name) {
+      var marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+      marker.bindPopup(name + "<br><textarea id='popup-textarea-" + name + "'></textarea><button onclick='savePopupText(\"" + name + "\")'>Save</button><button onclick='deleteMarker(\"" + name + "\")'>Supprimer</button>");
+      marker.on('dragend', function(e) {
+        var lat = e.target.getLatLng().lat;
+        var lng = e.target.getLatLng().lng;
+        // Met à jour les coordonnées du marqueur dans le stockage local
+        var index = markers.findIndex(m => m.name === name);
+        if (index !== -1) {
+          markers[index].lat = lat;
+          markers[index].lng = lng;
+          localStorage.setItem('markers', JSON.stringify(markers));
+        }
+      });
+      marker.on('popupopen', function() {
+        var markerData = markers.find(m => m.name === name);
+        if (markerData) {
+          document.getElementById('popup-textarea-' + name).value = markerData.text;
+        } else {
+          document.getElementById('popup-textarea-' + name).value = '';
+        }
+      });
+    }
+
+    // Fonction pour sauvegarder le texte de la popup dans le stockage local
+    function savePopupText(name) {
+      var newText = document.getElementById('popup-textarea-' + name).value;
+      // Met à jour le texte du marqueur dans le stockage local
+      var index = markers.findIndex(m => m.name === name);
+      if (index !== -1) {
+        markers[index].text = newText;
+        localStorage.setItem('markers', JSON.stringify(markers));
+      }
+    }
+
+    // Fonction pour supprimer un marqueur de la carte et du stockage local
+    function deleteMarker(name) {
+      // Supprime le marqueur de la carte
+      map.eachLayer(function(layer) {
+        if (layer instanceof L.Marker && layer.getPopup().getContent().includes(name)) {
+          map.removeLayer(layer);
+        }
+      });
+
+      // Supprime le marqueur du stockage local
+      markers = markers.filter(m => m.name !== name);
+      localStorage.setItem('markers', JSON.stringify(markers));
+    }
+
+    // Lorsque la page est chargée, ajoute les marqueurs existants sur la carte
+    markers.forEach(function(marker) {
+      var lat = marker.lat;
+      var lng = marker.lng;
+      var name = marker.name;
+      addMarkerToMap(lat, lng, name);
     });
+
+    // Ajoute le gestionnaire d'événements sur la carte pour détecter les clics
+    map.on('click', onMapClick);
   </script>
 </body>
 </html>
